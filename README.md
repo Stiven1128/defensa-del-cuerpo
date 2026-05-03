@@ -17,7 +17,7 @@ El juego tiene como propósito **educar** sobre cómo funciona el sistema inmune
 | Control | Acción |
 |---------|--------|
 | `W A S D` o `↑ ↓ ← →` | Mover el glóbulo blanco |
-| `Clic izquierdo` | Disparar anticuerpos |
+| `Clic derecho` | Disparar anticuerpos |
 
 ---
 
@@ -77,7 +77,7 @@ defensa-del-cuerpo/
 └── shader/
     ├── player_glow.gdshader
     ├── virus_shader.gdshader
-    └── fondo_pulmones.gdshader
+    └── main.gdshader
 ```
 
 ---
@@ -86,8 +86,8 @@ defensa-del-cuerpo/
 
 | Integrante | Rama | Responsabilidad |
 |-----------|------|----------------|
-| **[Tu nombre]** | `rama-tuNombre` | Player, Bullet, GameData, Menú, Shaders |
-| **[Nombre compañera]** | `rama-compañera` | Virus, Spawner, GameManager |
+| **[Jose Stiven Rodas Beltran]** | `Stiven` | Player, Bullet, GameData, Menú, Shaders |
+| **[Mariana Duarte Castro]** | `Mariana` | Virus, Spawner, GameManager |
 
 ---
 
@@ -95,8 +95,8 @@ defensa-del-cuerpo/
 
 ```bash
 main              # Rama principal
-rama-tuNombre     # Desarrollo del jugador y UI
-rama-compañera    # Desarrollo de enemigos y lógica
+Stiven     # Desarrollo del jugador y UI
+Mariana    # Desarrollo de enemigos y lógica
 ```
 
 ---
@@ -105,7 +105,7 @@ rama-compañera    # Desarrollo de enemigos y lógica
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/TU_USUARIO/defensa-del-cuerpo.git
+git clone https://github.com/Stiven1128/defensa-del-cuerpo.git
 ```
 2. Abre **Godot 4**
 3. Importa el proyecto desde la carpeta clonada

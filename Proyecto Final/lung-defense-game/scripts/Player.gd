@@ -44,8 +44,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	var vp = get_viewport_rect()
 	global_position = global_position.clamp(
-		vp.position + Vector2(20, 20),
-		vp.end      - Vector2(20, 20)
+		vp.position + Vector2(40, 40),
+		vp.end - Vector2(40, 40)
 	)
 	if dir.x != 0:
 		anim.flip_h = dir.x < 0
@@ -53,7 +53,13 @@ func _physics_process(_delta: float) -> void:
 		anim.play("walk" if dir != Vector2.ZERO else "idle")
 
 func _apuntar_al_mouse() -> void:
-	gun_pivot.look_at(get_global_mouse_position())
+	var mouse = get_global_mouse_position()
+	gun_pivot.look_at(mouse)
+	# Voltear el sprite según donde apunta el mouse
+	if mouse.x < global_position.x:
+		anim.flip_h = true
+	else:
+		anim.flip_h = false
 
 func _disparar() -> void:
 	shoot_cooldown = fire_rate
@@ -76,13 +82,16 @@ func take_damage(amount: int = 1) -> void:
 	tw.tween_property(hurt_overlay, "modulate:a", 0.55, 0.04)
 	tw.tween_property(hurt_overlay, "modulate:a", 0.0,  0.20)
 	if snd_hurt.stream: snd_hurt.play()
+	if hp == 0:
+		_morir()
+		return
 	await anim.animation_finished
 	if not dead: anim.play("idle")
-	if hp == 0: _morir()
 
 func _morir() -> void:
 	dead = true
 	set_physics_process(false)
+	set_process(false)
 	anim.play("death")
 	emit_signal("died")
 	await anim.animation_finished

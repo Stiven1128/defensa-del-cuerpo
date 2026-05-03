@@ -1,23 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqfxppsqgcw3v"]
+[gd_scene load_steps=8 format=3 uid="uid://dqfxppsqgcw3v"]
 
 [ext_resource type="Script" uid="uid://udh4ae5y82sd" path="res://scripts/GameManager.gd" id="1_jyhfs"]
+[ext_resource type="Shader" uid="uid://6443fb2qs2gt" path="res://shader/main.gdshader" id="2_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://cp4o6qyt61lnx" path="res://scenes/player.tscn" id="2_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://dpy6pt1i2yo6l" path="res://assets/sprites/fondo_pulmones.png" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://bq63axuu3lrk0" path="res://scripts/Spawner.gd" id="3_tefeu"]
 [ext_resource type="AudioStream" uid="uid://cd3qyuej45xru" path="res://assets/sounds/music_game.mp3" id="4_o6xl0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tipki"]
+shader = ExtResource("2_o6xl0")
+shader_parameter/pulse_speed = 0.8
+shader_parameter/pulse_strength = 0.08
+shader_parameter/glow_strength = 0.4
+shader_parameter/glow_color = Color(1, 0.2, 0.3, 1)
+shader_parameter/vignette_strength = 0.6
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jyhfs")
 
-[node name="Fondo" type="ColorRect" parent="."]
+[node name="Fondo" type="TextureRect" parent="."]
+z_index = -10
+material = SubResource("ShaderMaterial_tipki")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.101960786, 0.039215688, 0.18039216, 1)
-
-[node name="Player" parent="." instance=ExtResource("2_tbgi4")]
-position = Vector2(640, 360)
+texture = ExtResource("2_tefeu")
+expand_mode = 1
 
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("3_tefeu")
@@ -25,7 +37,11 @@ script = ExtResource("3_tefeu")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_o6xl0")
 
+[node name="Player" parent="." instance=ExtResource("2_tbgi4")]
+position = Vector2(640, 360)
+
 [node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="LblScore" type="Label" parent="HUD"]
 offset_left = 20.0
@@ -49,11 +65,78 @@ offset_right = 1183.0
 offset_bottom = 43.0
 text = "🦠 OLEADA 1"
 
-[node name="HPBar" type="TextureProgressBar" parent="HUD"]
+[node name="CorazonesContainer" type="HBoxContainer" parent="HUD"]
 offset_left = 20.0
 offset_top = 55.0
 offset_right = 60.0
 offset_bottom = 95.0
+
+[node name="PanelOleada" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LblOleadaGrande" type="Label" parent="HUD/PanelOleada"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 60
+
+[node name="PanelGanaste" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HUD/PanelGanaste"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PanelGanaste"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LblGanaste" type="Label" parent="HUD/PanelGanaste/VBoxContainer"]
+layout_mode = 2
+text = "🏆 ¡GANASTE!"
+
+[node name="LblScoreFinal" type="Label" parent="HUD/PanelGanaste/VBoxContainer"]
+layout_mode = 2
+text = "Puntuación: 0"
+
+[node name="BtnReiniciar" type="Button" parent="HUD/PanelGanaste/VBoxContainer"]
+layout_mode = 2
+text = "🔄 Jugar de nuevo"
 
 [node name="PanelNivel" type="Control" parent="HUD"]
 layout_mode = 3
@@ -112,49 +195,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "🔴 DIFÍCIL — Tiempo: 50s"
 
-[node name="PanelGanaste" type="Control" parent="HUD"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="HUD/PanelGanaste"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.6)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PanelGanaste"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LblGanaste" type="Label" parent="HUD/PanelGanaste/VBoxContainer"]
-layout_mode = 2
-text = "🏆 ¡GANASTE!"
-
-[node name="LblScoreFinal" type="Label" parent="HUD/PanelGanaste/VBoxContainer"]
-layout_mode = 2
-text = "Puntuación: 0"
-
-[node name="BtnReiniciar" type="Button" parent="HUD/PanelGanaste/VBoxContainer"]
-layout_mode = 2
-text = "🔄 Jugar de nuevo"
-
 [node name="PanelPerdiste" type="Control" parent="HUD"]
 visible = false
 layout_mode = 3
@@ -186,6 +226,7 @@ offset_right = 54.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 theme_override_constants/separation = 16
 
 [node name="LblPerdiste" type="Label" parent="HUD/PanelPerdiste/VBoxContainer"]
@@ -203,8 +244,107 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "🔄 Jugar de nuevo"
 
+[node name="BtnCambiarNivel" type="Button" parent="HUD/PanelPerdiste/VBoxContainer"]
+layout_mode = 2
+text = "🎮 Cambiar Nivel"
+
+[node name="PanelNivelNuevo" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HUD/PanelNivelNuevo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8666667)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PanelNivelNuevo"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LblNivelNuevo" type="Label" parent="HUD/PanelNivelNuevo/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="IntroLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="PanelIntro" type="Control" parent="IntroLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="IntroLayer/PanelIntro"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="IntroLayer/PanelIntro"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="LblTitulo" type="Label" parent="IntroLayer/PanelIntro/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "🦠 DEFENSA DEL CUERPO"
+
+[node name="LblDesc" type="Label" parent="IntroLayer/PanelIntro/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Eres un glóbulo blanco.
+Elimina los virus antes
+de que invadan el cuerpo."
+
+[node name="LblControles" type="Label" parent="IntroLayer/PanelIntro/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "🕹️ WASD = Moverse
+🖱️ Clic = Disparar"
+
+[node name="BtnComenzar" type="Button" parent="IntroLayer/PanelIntro/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "▶ COMENZAR"
+
+[connection signal="pressed" from="HUD/PanelGanaste/VBoxContainer/BtnReiniciar" to="." method="_on_btn_reiniciar_pressed"]
 [connection signal="pressed" from="HUD/PanelNivel/Contenedor/BtnFacil" to="." method="_on_btn_facil_pressed"]
 [connection signal="pressed" from="HUD/PanelNivel/Contenedor/BtnMedio" to="." method="_on_btn_medio_pressed"]
 [connection signal="pressed" from="HUD/PanelNivel/Contenedor/BtnDificil" to="." method="_on_btn_dificil_pressed"]
-[connection signal="pressed" from="HUD/PanelGanaste/VBoxContainer/BtnReiniciar" to="." method="_on_btn_reiniciar_pressed"]
 [connection signal="pressed" from="HUD/PanelPerdiste/VBoxContainer/BtnReiniciar" to="." method="_on_btn_reiniciar_pressed"]
+[connection signal="pressed" from="HUD/PanelPerdiste/VBoxContainer/BtnCambiarNivel" to="." method="_on_btn_cambiar_nivel_pressed"]
+[connection signal="pressed" from="IntroLayer/PanelIntro/VBoxContainer/BtnComenzar" to="." method="_on_btn_comenzar_pressed"]

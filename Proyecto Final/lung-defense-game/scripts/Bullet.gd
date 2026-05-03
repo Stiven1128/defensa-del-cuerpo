@@ -5,6 +5,7 @@ extends Area2D
 
 var dir: Vector2 = Vector2.RIGHT
 
+# ─────────────────────────────────────────────────────
 func _ready() -> void:
 	dir = Vector2.RIGHT.rotated(rotation)
 	get_tree().create_timer(2.0).timeout.connect(queue_free)
@@ -13,11 +14,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position += dir * speed * delta
 
-func _on_hit(body: Node) -> void:
-	if body.is_in_group("virus"):
-		body.take_damage(damage)
+# ── Golpea un virus ───────────────────────────────────
+func _on_hit(_body: Node) -> void:
+	if _body.is_in_group("virus"):
+		_body.take_damage(damage)
 		_destruir()
 
+# ── Efecto de impacto ─────────────────────────────────
 func _destruir() -> void:
 	set_process(false)
 	$CollisionShape2D.set_deferred("disabled", true)
@@ -26,7 +29,3 @@ func _destruir() -> void:
 	tw.parallel().tween_property(self, "modulate:a", 0.0, 0.08)
 	await tw.finished
 	queue_free()
-
-
-func _on_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1sfdjafp8wr3"
-path="res://.godot/imported/ChatGPT Image 25 abr 2026, 00_17_43.png-a985e791b73d98a8047a5ea68198aa1d.ctex"
+uid="uid://dpy6pt1i2yo6l"
+path="res://.godot/imported/fondo_pulmones.png-f7fdfe7fdbda8ceaa882e3428005b6d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ChatGPT Image 25 abr 2026, 00_17_43.png"
-dest_files=["res://.godot/imported/ChatGPT Image 25 abr 2026, 00_17_43.png-a985e791b73d98a8047a5ea68198aa1d.ctex"]
+source_file="res://assets/sprites/fondo_pulmones.png"
+dest_files=["res://.godot/imported/fondo_pulmones.png-f7fdfe7fdbda8ceaa882e3428005b6d5.ctex"]
 
 [params]
 

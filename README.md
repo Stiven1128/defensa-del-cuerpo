@@ -86,8 +86,8 @@ defensa-del-cuerpo/
 
 | Integrante | Rama | Responsabilidad |
 |-----------|------|----------------|
-| **[Jose Stiven Rodas Beltran]** | `Stiven` | Player, Bullet, GameData, Menú, Shaders |
-| **[Mariana Duarte Castro]** | `Mariana` | Virus, Spawner, GameManager |
+| **Jose Stiven Rodas Beltran** | `Stiven` | Player, Bullet, GameData, Menú, Shaders |
+| **Mariana Duarte Castro** | `Mariana` | Virus, Spawner, GameManager |
 
 ---
 
